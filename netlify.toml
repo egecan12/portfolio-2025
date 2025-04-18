@@ -5,8 +5,15 @@
 [build.environment]
   NODE_VERSION = "20.11.0"
   NPM_VERSION = "10.2.4"
+  NEXT_USE_NETLIFY_EDGE = "true"
+  NEXT_FORCE_EDGE_IMAGES = "true"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Next.js projelerinde bu redirect genellikle gerekli değildir,
+# plugin-nextjs bu yönlendirmeleri otomatik olarak yapılandırır
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200 
