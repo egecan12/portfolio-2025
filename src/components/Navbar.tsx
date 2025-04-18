@@ -10,10 +10,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import LanguageIcon from '@mui/icons-material/Language';
 
 const navLinks = [
-  { href: '/#about', label: 'About' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#articles', label: 'Articles' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#articles', label: 'Articles' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
@@ -91,7 +91,7 @@ export default function Navbar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2, gap: 1 }}>
             <IconButton
               component="a"
-              href="https://github.com/yourusername"
+              href="https://github.com/egecan12"
               target="_blank"
               rel="noopener noreferrer"
               color="inherit"
@@ -102,7 +102,7 @@ export default function Navbar() {
             </IconButton>
             <IconButton
               component="a"
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/egecan-kahyaoglu/"
               target="_blank"
               rel="noopener noreferrer"
               color="inherit"
@@ -110,15 +110,6 @@ export default function Navbar() {
               sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
             >
               <LinkedInIcon fontSize="small" />
-            </IconButton>
-            <IconButton
-              component="a"
-              href="mailto:your@email.com"
-              color="inherit"
-              size="small"
-              sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
-            >
-              <EmailIcon fontSize="small" />
             </IconButton>
           </Box>
 
@@ -182,7 +173,7 @@ export default function Navbar() {
           <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
             <IconButton
               component="a"
-              href="https://github.com/yourusername"
+              href="https://github.com/egecan12"
               target="_blank"
               rel="noopener noreferrer"
               color="inherit"
@@ -192,21 +183,13 @@ export default function Navbar() {
             </IconButton>
             <IconButton
               component="a"
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/egecan-kahyaoglu/"
               target="_blank"
               rel="noopener noreferrer"
               color="inherit"
               size="small"
             >
               <LinkedInIcon fontSize="small" />
-            </IconButton>
-            <IconButton
-              component="a"
-              href="mailto:your@email.com"
-              color="inherit"
-              size="small"
-            >
-              <EmailIcon fontSize="small" />
             </IconButton>
           </Box>
           <Button

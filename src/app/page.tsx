@@ -125,6 +125,7 @@ export default function HomePage() {
                   variant="contained" 
                   size="large" 
                   endIcon={<ArrowForwardIcon />}
+                  href="#projects"
                   sx={{ 
                     bgcolor: '#2c5364', 
                     '&:hover': { bgcolor: '#203a43' }
@@ -135,6 +136,7 @@ export default function HomePage() {
                 <Button 
                   variant="outlined" 
                   size="large"
+                  href="#contact"
                   sx={{ 
                     color: 'white', 
                     borderColor: 'white',
@@ -171,7 +173,7 @@ export default function HomePage() {
       </Box>
 
       {/* About Section */}
-      <Box sx={{ py: 10 }}>
+      <Box id="about" sx={{ py: 10 }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             About Me
@@ -296,7 +298,7 @@ export default function HomePage() {
       </Box>
 
       {/* Projects Section */}
-      <Box sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="projects" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Recent Projects
@@ -464,7 +466,7 @@ export default function HomePage() {
       </Box>
 
       {/* Articles Section */}
-      <Box sx={{ py: 10 }}>
+      <Box id="articles" sx={{ py: 10 }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Articles
@@ -504,7 +506,7 @@ export default function HomePage() {
       </Box>
 
       {/* Contact Section */}
-      <Box sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="contact" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Get In Touch
@@ -525,19 +527,12 @@ export default function HomePage() {
             >
               <Button 
                 variant="contained" 
-                startIcon={<EmailIcon />}
-                sx={{ bgcolor: '#2c5364', '&:hover': { bgcolor: '#203a43' } }}
-                href="mailto:your.email@example.com"
-              >
-                Email Me
-              </Button>
-              <Button 
-                variant="outlined" 
                 startIcon={<LinkedInIcon />}
-                href="https://linkedin.com/in/yourusername"
-            target="_blank"
+                href="https://www.linkedin.com/in/egecan-kahyaoglu/"
+                target="_blank"
+                sx={{ bgcolor: '#2c5364', '&:hover': { bgcolor: '#203a43' } }}
               >
-                LinkedIn
+                Connect on LinkedIn
               </Button>
             </Stack>
           </Box>
@@ -569,17 +564,10 @@ export default function HomePage() {
               <IconButton 
                 aria-label="linkedin" 
                 sx={{ color: 'white' }}
-                href="https://linkedin.com/in/egecan12"
-          target="_blank"
+                href="https://www.linkedin.com/in/egecan-kahyaoglu/"
+                target="_blank"
               >
                 <LinkedInIcon />
-              </IconButton>
-              <IconButton 
-                aria-label="email" 
-                sx={{ color: 'white' }}
-                href="mailto:egecankahyaoglu@gmail.com"
-              >
-                <EmailIcon />
               </IconButton>
             </Stack>
           </Stack>
