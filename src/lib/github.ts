@@ -21,6 +21,98 @@ export type GithubRepo = {
 };
 
 /**
+ * Bir kullanıcının pinlediği GitHub repolarını getirir
+ * @param username GitHub kullanıcı adı
+ * @returns Promise<GithubRepo[]> Repolar dizisi
+ */
+export async function getPinnedRepos(username: string): Promise<GithubRepo[]> {
+  const cacheKey = `pinned-repos-${username}`;
+  
+  // Cache kontrolü
+  const cachedData = cache[cacheKey];
+  if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
+    return cachedData.data;
+  }
+  
+  try {
+    // GraphQL API kullanarak pinlenmiş repoları sorgula
+    const response = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${process.env.GITHUB_TOKEN || ''}`
+      },
+      body: JSON.stringify({
+        query: `{
+          user(login: "${username}") {
+            pinnedItems(first: 6, types: REPOSITORY) {
+              nodes {
+                ... on Repository {
+                  id
+                  name
+                  description
+                  url
+                  homepageUrl
+                  primaryLanguage {
+                    name
+                  }
+                  stargazerCount
+                  forkCount
+                  repositoryTopics(first: 10) {
+                    nodes {
+                      topic {
+                        name
+                      }
+                    }
+                  }
+                  createdAt
+                  updatedAt
+                  isFork
+                }
+              }
+            }
+          }
+        }`
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    // GraphQL verisini GithubRepo tipine dönüştür
+    const pinnedRepos: GithubRepo[] = data.data.user.pinnedItems.nodes.map((repo: any) => ({
+      id: parseInt(repo.id.split('_').pop()),
+      name: repo.name,
+      description: repo.description,
+      html_url: repo.url,
+      homepage: repo.homepageUrl,
+      language: repo.primaryLanguage ? repo.primaryLanguage.name : null,
+      stargazers_count: repo.stargazerCount,
+      forks_count: repo.forkCount,
+      topics: repo.repositoryTopics.nodes.map((topic: any) => topic.topic.name),
+      created_at: repo.createdAt,
+      updated_at: repo.updatedAt,
+      fork: repo.isFork
+    }));
+    
+    // Sonuçları cache'le
+    cache[cacheKey] = {
+      data: pinnedRepos,
+      timestamp: Date.now()
+    };
+    
+    return pinnedRepos;
+  } catch (error) {
+    console.error('Error fetching pinned GitHub repos:', error);
+    // Pinlenen repolar getirilemezse normal repoları al
+    return getUserRepos(username);
+  }
+}
+
+/**
  * Bir kullanıcının GitHub repolarını getirir ve star sayısına göre sıralar
  * @param username GitHub kullanıcı adı
  * @returns Promise<GithubRepo[]> Repolar dizisi
@@ -170,19 +262,38 @@ export async function getReadmeImage(username: string, repo: string): Promise<st
 
 /**
  * Repo bilgilerini ve README resmini içeren gelişmiş repo bilgilerini getirir
+ * Bu fonksiyon önce pinlenen repoları almayı dener, eğer başarısız olursa
+ * normal repoları getirir
  * @param username GitHub kullanıcı adı
  * @returns Promise<Array<GithubRepo & { readmeImage: string | null }>> Gelişmiş repo dizisi
  */
 export async function getEnhancedUserRepos(username: string): Promise<Array<GithubRepo & { readmeImage: string | null }>> {
-  const repos = await getUserRepos(username);
-  
-  // Her repo için README resimlerini çek
-  const enhancedRepos = await Promise.all(
-    repos.map(async (repo) => {
-      const readmeImage = await getReadmeImage(username, repo.name);
-      return { ...repo, readmeImage };
-    })
-  );
-  
-  return enhancedRepos;
+  try {
+    // Önce pinlenen repoları almayı dene
+    const repos = await getPinnedRepos(username);
+    
+    // Her repo için README resimlerini çek
+    const enhancedRepos = await Promise.all(
+      repos.map(async (repo) => {
+        const readmeImage = await getReadmeImage(username, repo.name);
+        return { ...repo, readmeImage };
+      })
+    );
+    
+    return enhancedRepos;
+  } catch (error) {
+    // Pinlenen repolar alınamazsa, normal repoları kullan
+    console.error('Error fetching pinned repos, falling back to regular repos:', error);
+    const repos = await getUserRepos(username);
+    
+    // Her repo için README resimlerini çek
+    const enhancedRepos = await Promise.all(
+      repos.map(async (repo) => {
+        const readmeImage = await getReadmeImage(username, repo.name);
+        return { ...repo, readmeImage };
+      })
+    );
+    
+    return enhancedRepos;
+  }
 } 
