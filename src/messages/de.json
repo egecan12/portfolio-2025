@@ -1,0 +1,18 @@
+{
+  "Navigation": {
+    "about": "Über mich",
+    "projects": "Projekte",
+    "articles": "Artikel"
+  },
+  "Home": {
+    "hero": {
+      "title": "Hallo, ich bin Egecan Kahyaoglu",
+      "subtitle": "Ein leidenschaftlicher Software-Ingenieur, der moderne Webanwendungen mit modernsten Technologien entwickelt.",
+      "cta": "Meine Arbeit ansehen"
+    },
+    "about": {
+      "title": "Über mich",
+      "description": "Ich bin ein Software-Ingenieur mit Schwerpunkt auf Webentwicklung. Ich liebe es, schöne, leistungsstarke und benutzerfreundliche Anwendungen zu erstellen. Zu meinen Fachgebieten gehören moderne JavaScript-Frameworks, Cloud-Technologien und Best Practices in der Softwareentwicklung."
+    }
+  }
+} 

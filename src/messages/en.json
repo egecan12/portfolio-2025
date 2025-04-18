@@ -1,0 +1,18 @@
+{
+  "Navigation": {
+    "about": "About",
+    "projects": "Projects",
+    "articles": "Articles"
+  },
+  "Home": {
+    "hero": {
+      "title": "Hi, I'm Egecan Kahyaoglu",
+      "subtitle": "A passionate software engineer building modern web applications with cutting-edge technologies.",
+      "cta": "View My Work"
+    },
+    "about": {
+      "title": "About Me",
+      "description": "I'm a software engineer with a strong focus on web development. I love creating beautiful, performant, and user-friendly applications. My expertise includes modern JavaScript frameworks, cloud technologies, and best practices in software development."
+    }
+  }
+} 
