@@ -294,12 +294,12 @@ export default function HomePage() {
       </Box>
 
       {/* Projects Section */}
-      <Box id="projects" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="projects" sx={{ py: 10, bgcolor: '#303030', color: 'white' }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Recent Projects
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, borderColor: 'rgba(255,255,255,0.1)' }} />
           
           {loading ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 6 }}>
@@ -319,7 +319,7 @@ export default function HomePage() {
                       } 
                     }}
                   >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'white', color: 'text.primary' }}>
                       <CardMedia
                         component="img"
                         height="140"
@@ -408,7 +408,7 @@ export default function HomePage() {
                       } 
                     }}
                   >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'white', color: 'text.primary' }}>
                       <CardMedia
                         component="img"
                         height="140"
@@ -502,15 +502,15 @@ export default function HomePage() {
       </Box>
 
       {/* Contact Section */}
-      <Box id="contact" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="contact" sx={{ py: 10, bgcolor: '#303030', color: 'white' }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1}>
+          <Typography variant="h3" fontWeight="bold" mb={1} sx={{ textAlign: 'center' }}>
             Get In Touch
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, borderColor: 'rgba(255,255,255,0.1)' }} />
           
           <Box sx={{ maxWidth: '700px', mx: 'auto', textAlign: 'center' }}>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" paragraph sx={{ color: 'white' }}>
               I'm currently open to new opportunities and collaborations. Whether you have a question, a project idea, 
               or just want to connect, feel free to reach out!
             </Typography>
@@ -526,7 +526,7 @@ export default function HomePage() {
                 startIcon={<LinkedInIcon />}
                 href="https://www.linkedin.com/in/egecan-kahyaoglu/"
                 target="_blank"
-                sx={{ bgcolor: '#2c5364', '&:hover': { bgcolor: '#203a43' } }}
+                sx={{ bgcolor: '#0077b5', '&:hover': { bgcolor: '#006299' } }}
               >
                 Connect on LinkedIn
               </Button>
