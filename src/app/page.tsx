@@ -1,7 +1,6 @@
 "use client";
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 // import { useTranslations } from 'next-intl';
 import {
@@ -11,7 +10,6 @@ import {
   Typography,
   Divider,
   Stack,
-  Avatar,
   IconButton,
   Chip,
   Card,
@@ -21,10 +19,8 @@ import {
   Paper,
   CircularProgress,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import EmailIcon from '@mui/icons-material/Email';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CodeIcon from '@mui/icons-material/Code';

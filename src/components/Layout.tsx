@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { Link, usePathname } from '@/lib/i18n';
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
 interface LayoutProps {
