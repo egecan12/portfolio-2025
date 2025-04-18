@@ -294,12 +294,16 @@ export default function HomePage() {
       </Box>
 
       {/* Projects Section */}
-      <Box id="projects" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="projects" sx={{ 
+        py: 10, 
+        background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
+        color: 'white' 
+      }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Recent Projects
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, borderColor: 'rgba(255,255,255,0.2)' }} />
           
           {loading ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 6 }}>
@@ -319,7 +323,19 @@ export default function HomePage() {
                       } 
                     }}
                   >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Card sx={{ 
+                      height: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      bgcolor: 'rgba(255,255,255,0.95)', 
+                      color: 'text.primary',
+                      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.2)'
+                      }
+                    }}>
                       <CardMedia
                         component="img"
                         height="140"
@@ -343,6 +359,13 @@ export default function HomePage() {
                               size="small" 
                               color="primary"
                               variant="outlined"
+                              sx={{
+                                borderColor: 'rgba(44, 83, 100, 0.5)',
+                                color: '#2c5364',
+                                '& .MuiChip-icon': {
+                                  color: '#2c5364'
+                                }
+                              }}
                             />
                           )}
                           {project.topics && project.topics.map((topic) => (
@@ -351,13 +374,17 @@ export default function HomePage() {
                               label={topic} 
                               size="small" 
                               variant="outlined"
+                              sx={{
+                                borderColor: 'rgba(32, 58, 67, 0.3)',
+                                color: '#203a43'
+                              }}
                             />
                           ))}
                         </Box>
                         
                         {project.stargazers_count > 0 && (
                           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                            <StarIcon fontSize="small" sx={{ color: 'gold', mr: 0.5 }} />
+                            <StarIcon fontSize="small" sx={{ color: '#f9a825', mr: 0.5 }} />
                             <Typography variant="body2" color="text.secondary">
                               {project.stargazers_count}
                             </Typography>
@@ -365,7 +392,7 @@ export default function HomePage() {
                         )}
                         {project.forks_count > 0 && (
                           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, ml: project.stargazers_count > 0 ? 2 : 0 }}>
-                            <ForkRightIcon fontSize="small" sx={{ color: 'primary.main', mr: 0.5 }} />
+                            <ForkRightIcon fontSize="small" sx={{ color: '#2c5364', mr: 0.5 }} />
                             <Typography variant="body2" color="text.secondary">
                               {project.forks_count}
                             </Typography>
@@ -378,6 +405,12 @@ export default function HomePage() {
                           startIcon={<GitHubIcon />} 
                           href={project.html_url}
                           target="_blank"
+                          sx={{
+                            color: '#2c5364',
+                            '&:hover': {
+                              bgcolor: 'rgba(44, 83, 100, 0.05)'
+                            }
+                          }}
                         >
                           Code
                         </Button>
@@ -386,7 +419,13 @@ export default function HomePage() {
                             size="small" 
                             startIcon={<OpenInNewIcon />} 
                             href={project.homepage}
-            target="_blank"
+                            target="_blank"
+                            sx={{
+                              color: '#203a43',
+                              '&:hover': {
+                                bgcolor: 'rgba(32, 58, 67, 0.05)'
+                              }
+                            }}
                           >
                             Demo
                           </Button>
@@ -408,7 +447,19 @@ export default function HomePage() {
                       } 
                     }}
                   >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Card sx={{ 
+                      height: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      bgcolor: 'rgba(255,255,255,0.95)', 
+                      color: 'text.primary',
+                      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.2)'
+                      }
+                    }}>
                       <CardMedia
                         component="img"
                         height="140"
@@ -430,6 +481,10 @@ export default function HomePage() {
                               label={tech} 
                               size="small" 
                               variant="outlined"
+                              sx={{
+                                borderColor: 'rgba(32, 58, 67, 0.3)',
+                                color: '#203a43'
+                              }}
                             />
                           ))}
                         </Box>
@@ -440,6 +495,12 @@ export default function HomePage() {
                           startIcon={<GitHubIcon />} 
                           href={project.github}
                           target="_blank"
+                          sx={{
+                            color: '#2c5364',
+                            '&:hover': {
+                              bgcolor: 'rgba(44, 83, 100, 0.05)'
+                            }
+                          }}
                         >
                           Code
                         </Button>
@@ -448,6 +509,12 @@ export default function HomePage() {
                           startIcon={<OpenInNewIcon />} 
                           href={project.demo}
                           target="_blank"
+                          sx={{
+                            color: '#203a43',
+                            '&:hover': {
+                              bgcolor: 'rgba(32, 58, 67, 0.05)'
+                            }
+                          }}
                         >
                           Demo
                         </Button>
@@ -462,17 +529,31 @@ export default function HomePage() {
       </Box>
 
       {/* Articles Section */}
-      <Box id="articles" sx={{ py: 10 }}>
+      <Box id="articles" sx={{ 
+        py: 10, 
+        background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+        color: 'white' 
+      }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Articles
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, borderColor: 'rgba(255,255,255,0.2)' }} />
           
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} flexWrap="wrap">
             {articles.map((article, index) => (
               <Box key={index} sx={{ width: { xs: '100%', md: 'calc(50% - 16px)' } }}>
-                <Card>
+                <Card sx={{ 
+                  height: '100%',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                  borderRadius: 2,
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  bgcolor: 'rgba(255,255,255,0.95)',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.2)'
+                  }
+                }}>
                   <CardContent>
                     <Typography variant="overline" color="text.secondary">
                       {article.date}
@@ -490,6 +571,12 @@ export default function HomePage() {
                       endIcon={<ArrowForwardIcon />} 
                       href={article.link}
                       target="_blank"
+                      sx={{
+                        color: '#2c5364',
+                        '&:hover': {
+                          bgcolor: 'rgba(44, 83, 100, 0.05)'
+                        }
+                      }}
                     >
                       Read Article
                     </Button>
@@ -502,15 +589,19 @@ export default function HomePage() {
       </Box>
 
       {/* Contact Section */}
-      <Box id="contact" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="contact" sx={{ 
+        py: 10, 
+        background: 'linear-gradient(to left, #0f2027, #203a43, #2c5364)',
+        color: 'white' 
+      }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1}>
+          <Typography variant="h3" fontWeight="bold" mb={1} sx={{ textAlign: 'center' }}>
             Get In Touch
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, borderColor: 'rgba(255,255,255,0.2)' }} />
           
           <Box sx={{ maxWidth: '700px', mx: 'auto', textAlign: 'center' }}>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" paragraph sx={{ color: 'white' }}>
               I'm currently open to new opportunities and collaborations. Whether you have a question, a project idea, 
               or just want to connect, feel free to reach out!
             </Typography>
@@ -526,7 +617,14 @@ export default function HomePage() {
                 startIcon={<LinkedInIcon />}
                 href="https://www.linkedin.com/in/egecan-kahyaoglu/"
                 target="_blank"
-                sx={{ bgcolor: '#2c5364', '&:hover': { bgcolor: '#203a43' } }}
+                sx={{ 
+                  bgcolor: 'rgba(255,255,255,0.15)', 
+                  backdropFilter: 'blur(10px)',
+                  color: 'white',
+                  '&:hover': { 
+                    bgcolor: 'rgba(255,255,255,0.25)'
+                  } 
+                }}
               >
                 Connect on LinkedIn
               </Button>
