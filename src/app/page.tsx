@@ -529,24 +529,29 @@ export default function HomePage() {
       </Box>
 
       {/* Articles Section */}
-      <Box id="articles" sx={{ py: 10, bgcolor: '#f8f9fa' }}>
+      <Box id="articles" sx={{ 
+        py: 10, 
+        background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+        color: 'white' 
+      }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
             Articles
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, borderColor: 'rgba(255,255,255,0.2)' }} />
           
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} flexWrap="wrap">
             {articles.map((article, index) => (
               <Box key={index} sx={{ width: { xs: '100%', md: 'calc(50% - 16px)' } }}>
                 <Card sx={{ 
                   height: '100%',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
                   borderRadius: 2,
                   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  bgcolor: 'rgba(255,255,255,0.95)',
                   '&:hover': {
                     transform: 'translateY(-8px)',
-                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.1)'
+                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.2)'
                   }
                 }}>
                   <CardContent>
