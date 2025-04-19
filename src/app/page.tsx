@@ -294,12 +294,12 @@ export default function HomePage() {
       </Box>
 
       {/* Projects Section */}
-      <Box id="projects" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="projects" sx={{ py: 10, bgcolor: '#c98a02' }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1}>
+          <Typography variant="h3" fontWeight="bold" mb={1} color="inherit">
             Recent Projects
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, bgcolor: 'rgba(0, 0, 0, 0.2)' }} />
           
           {loading ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 6 }}>
@@ -502,15 +502,15 @@ export default function HomePage() {
       </Box>
 
       {/* Contact Section */}
-      <Box id="contact" sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+      <Box id="contact" sx={{ py: 10, bgcolor: '#4602b3' }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1}>
+          <Typography variant="h3" fontWeight="bold" mb={1} color="white">
             Get In Touch
           </Typography>
-          <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4, bgcolor: 'rgba(255, 255, 255, 0.2)' }} />
           
           <Box sx={{ maxWidth: '700px', mx: 'auto', textAlign: 'center' }}>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" paragraph color="white">
               I'm currently open to new opportunities and collaborations. Whether you have a question, a project idea, 
               or just want to connect, feel free to reach out!
             </Typography>
