@@ -51,6 +51,35 @@ export default function HomePage() {
     fetchProjects();
   }, []);
   
+  // Structured data for SEO
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Egecan Kahyaoglu",
+    "jobTitle": "MSc Software Engineer",
+    "url": "https://egecankahyaoglu.netlify.app/",
+    "sameAs": [
+      "https://github.com/egecan12",
+      "https://www.linkedin.com/in/egecan-kahyaoglu/"
+    ],
+    "knowsAbout": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "PostgreSQL",
+      "MySQL",
+      "Docker"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Your Current Company" // Replace with your actual company name
+    }
+  };
+
   // Yedek proje verileri (API hatası durumunda kullanılacak)
   const fallbackProjects = [
     {
@@ -97,6 +126,10 @@ export default function HomePage() {
 
   return (
     <Box>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       <Navbar />
 
       {/* Hero Section */}
