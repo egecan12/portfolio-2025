@@ -11,7 +11,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
-  { href: '#articles', label: 'Articles' },
+  { href: '#applications', label: 'Applications' },
   { href: '#contact', label: 'Contact' },
 ];
 

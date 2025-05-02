@@ -18,6 +18,7 @@ import {
   CardMedia,
   Paper,
   CircularProgress,
+  Grid,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -121,6 +122,28 @@ export default function HomePage() {
       description: 'Discover how TypeScript improves developer experience and code quality in React projects',
       date: 'May 3, 2023',
       link: 'https://yourblog.com/typescript-react'
+    }
+  ];
+
+  // Applications data with platform information only
+  const applications = [
+    {
+      name: 'AI-Integrated Pokedex',
+      platform: 'Web',
+      icon: '/images/pokedex.png',
+      github: 'https://github.com/egecan12/Ai-Integrated-Pokedex'
+    },
+    {
+      name: 'ProdTrack',
+      platform: 'React Native & Web',
+      icon: '/images/prodtrack-icon.png',
+      github: 'https://github.com/egecan12/Production-Tracking-System'
+    },
+    {
+      name: 'Diffinity',
+      platform: 'Mac',
+      icon: '/images/diffinity.png',
+      github: 'https://github.com/egecan12/Diffinity'
     }
   ];
 
@@ -494,43 +517,110 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* Articles Section */}
-      <Box id="articles" sx={{ py: 10 }}>
+      {/* Applications Section */}
+      <Box id="applications" sx={{ 
+        py: 10, 
+        background: 'linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #6c3483 100%)',
+        boxShadow: 'inset 0 0 30px rgba(0,0,0,0.2)'
+      }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1}>
-            Articles
+          <Typography variant="h3" fontWeight="bold" mb={3} color="white" textAlign="center">
+            My Applications
           </Typography>
-          <Divider sx={{ mb: 4 }} />
           
-          <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} flexWrap="wrap">
-            {articles.map((article, index) => (
-              <Box key={index} sx={{ width: { xs: '100%', md: 'calc(50% - 16px)' } }}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="overline" color="text.secondary">
-                      {article.date}
-                    </Typography>
-                    <Typography variant="h5" component="div" fontWeight="bold" gutterBottom>
-                      {article.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" paragraph>
-                      {article.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button 
-                      size="small" 
-                      endIcon={<ArrowForwardIcon />} 
-                      href={article.link}
-                      target="_blank"
-                    >
-                      Read Article
-                    </Button>
-                  </CardActions>
-                </Card>
+          <Box sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            justifyContent: 'center',
+            gap: { xs: 4, md: 8 },
+            mt: 6
+          }}>
+            {applications.map((app, index) => (
+              <Box 
+                key={index} 
+                component="a"
+                href={app.github}
+                target="_blank"
+                sx={{ 
+                  textDecoration: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  transform: index === 1 ? 'translateY(-20px)' : 'none', // Center app slightly elevated
+                }}
+              >
+                <Box 
+                  sx={{ 
+                    p: 3,
+                    width: 180,
+                    height: 180,
+                    display: 'flex', 
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    background: 'rgba(255,255,255,0.15)',
+                    backdropFilter: 'blur(10px)',
+                    borderRadius: '20px',
+                    boxShadow: '0 15px 35px rgba(0,0,0,0.2)',
+                    transition: 'all 0.3s ease',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    '&:hover': {
+                      transform: 'translateY(-15px) scale(1.05)',
+                      boxShadow: '0 25px 45px rgba(0,0,0,0.3)',
+                      '&::before': {
+                        opacity: 1
+                      }
+                    },
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%)',
+                      opacity: 0,
+                      transition: 'opacity 0.3s ease',
+                      zIndex: 1
+                    }
+                  }}
+                >
+                  <Box 
+                    component="img" 
+                    src={app.icon} 
+                    alt={app.name} 
+                    sx={{ 
+                      width: 120, 
+                      height: 120, 
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.2))',
+                      zIndex: 2,
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'scale(1.1)'
+                      }
+                    }}
+                  />
+                </Box>
+                <Box sx={{ mt: 2, textAlign: 'center' }}>
+                  <Typography variant="h6" fontWeight="bold" color="white" sx={{ mb: 0.5 }}>
+                    {app.name}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+                    {app.platform}
+                  </Typography>
+                </Box>
               </Box>
             ))}
-          </Stack>
+          </Box>
+          
+          {/* Decorative elements */}
+          <Box sx={{ 
+            mt: 8, 
+            height: '40px', 
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
+            borderRadius: '20px'
+          }} />
         </Container>
       </Box>
 

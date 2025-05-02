@@ -26,8 +26,8 @@ export default function Layout({ children }: LayoutProps) {
               <Link href="/projects" className="hover:text-primary transition-colors">
                 {t('projects')}
               </Link>
-              <Link href="/articles" className="hover:text-primary transition-colors">
-                {t('articles')}
+              <Link href="/applications" className="hover:text-primary transition-colors">
+                {t('applications')}
               </Link>
             </div>
           </div>
