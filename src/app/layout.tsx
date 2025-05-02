@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     }
   },
   verification: {
-    google: 'verification_token', // Replace with your Google verification token if you have one
+    google: 'Jp8ddzFpFUI9omm4o1Icb_Z3TJSuBZKIyBFq5X8',
   }
 };
 
