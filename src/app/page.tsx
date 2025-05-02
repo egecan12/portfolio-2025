@@ -561,27 +561,11 @@ export default function HomePage() {
                     backdropFilter: 'blur(10px)',
                     borderRadius: '20px',
                     boxShadow: '0 15px 35px rgba(0,0,0,0.2)',
-                    transition: 'all 0.3s ease',
-                    overflow: 'hidden',
-                    position: 'relative',
+                    transform: 'translateY(0)',
+                    transition: 'transform 0.2s ease-out',
                     '&:hover': {
-                      transform: 'translateY(-15px) scale(1.05)',
+                      transform: 'translateY(-10px)',
                       boxShadow: '0 25px 45px rgba(0,0,0,0.3)',
-                      '&::before': {
-                        opacity: 1
-                      }
-                    },
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%)',
-                      opacity: 0,
-                      transition: 'opacity 0.3s ease',
-                      zIndex: 1
                     }
                   }}
                 >
@@ -594,8 +578,7 @@ export default function HomePage() {
                       height: 120, 
                       objectFit: 'contain',
                       filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.2))',
-                      zIndex: 2,
-                      transition: 'transform 0.3s ease',
+                      transition: 'transform 0.2s ease-out',
                       '&:hover': {
                         transform: 'scale(1.1)'
                       }
