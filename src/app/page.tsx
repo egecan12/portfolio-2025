@@ -224,11 +224,12 @@ export default function HomePage() {
                 mt: { xs: 4, md: 0 }
               }}
             >
-        <Image
+              <Image
                 src="/images/egecankahyaoglu.jpg"
                 alt="Egecan Kahyaoglu"
                 fill
-          priority
+                priority
+                sizes="(max-width: 768px) 250px, (max-width: 1200px) 300px, 350px"
                 style={{ objectFit: 'cover' }}
               />
             </Box>
