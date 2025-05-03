@@ -29,6 +29,12 @@ import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 import Navbar from '@/components/Navbar';
 import { getEnhancedUserRepos, type GithubRepo } from '@/lib/github';
+import AppleIcon from '@mui/icons-material/Apple';
+import PublicIcon from '@mui/icons-material/Public';
+import AndroidIcon from '@mui/icons-material/Android';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import IosShareIcon from '@mui/icons-material/IosShare';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
 export default function HomePage() {
   // const t = useTranslations('Index');
@@ -131,7 +137,7 @@ export default function HomePage() {
       name: 'AI-Integrated Pokedex',
       platform: 'Web',
       icon: '/images/pokedex.png',
-      github: 'https://github.com/egecan12/Ai-Integrated-Pokedex'
+      github: 'https://egecan12.github.io/Ai-Integrated-Pokedex/'
     },
     {
       name: 'ProdTrack',
@@ -144,6 +150,12 @@ export default function HomePage() {
       platform: 'Mac',
       icon: '/images/diffinity.png',
       github: 'https://github.com/egecan12/Diffinity'
+    },
+    {
+      name: 'Anatolia Game',
+      platform: 'Web',
+      icon: '/images/anatolia-game.png',
+      github: 'https://play.unity.com/en/games/56dd7836-6490-4042-91c4-99274e46870c/webgl'
     }
   ];
 
@@ -589,9 +601,26 @@ export default function HomePage() {
                   <Typography variant="h6" fontWeight="bold" color="white" sx={{ mb: 0.5 }}>
                     {app.name}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-                    {app.platform}
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                    {app.platform === 'Mac' && (
+                      <AppleIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                    )}
+                    {app.platform === 'Web' && (
+                      <>
+                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                        {app.name === 'Anatolia Game' && (
+                          <SportsEsportsIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                        )}
+                      </>
+                    )}
+                    {app.platform === 'React Native & Web' && (
+                      <>
+                        <AndroidIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                        <PhoneIphoneIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                      </>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             ))}
@@ -610,7 +639,7 @@ export default function HomePage() {
       {/* Contact Section */}
       <Box id="contact" sx={{ py: 10, bgcolor: '#4602b3' }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1} color="white">
+          <Typography variant="h3" fontWeight="bold" mb={1} color="white" textAlign="center">
             Get In Touch
           </Typography>
           <Divider sx={{ mb: 4, bgcolor: 'rgba(255, 255, 255, 0.2)' }} />
