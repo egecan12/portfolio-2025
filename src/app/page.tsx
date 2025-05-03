@@ -140,7 +140,7 @@ export default function HomePage() {
       description: 'A 2D fighting game built with PhaserJS. Features include multiple characters, special moves, and engaging gameplay mechanics.',
       tech: ['PhaserJS', 'JavaScript', 'HTML5', 'CSS3'],
       github: 'https://github.com/egecan12/PhaserJS-Delight-Fighter',
-      demo: null,
+      demo: 'https://web-game-delight-fighter.onrender.com/',
       readmeImage: '/images/delight-fighter.png'
     },
     {
