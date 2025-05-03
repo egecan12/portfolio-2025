@@ -40,18 +40,34 @@ const profileImage = '/images/egecankahyaoglu.png';
 
 export default function HomePage() {
   // const t = useTranslations('Index');
-  const [projects, setProjects] = useState<Array<GithubRepo & { readmeImage: string | null }>>([]);
+  const [projects, setProjects] = useState<Array<{
+    id: number;
+    name: string;
+    description: string;
+    tech: string[];
+    github: string;
+    demo: string | null;
+    readmeImage: string;
+  }>>([]);
   const [loading, setLoading] = useState(true);
   
   // GitHub projeleri için veri çekme
   useEffect(() => {
     async function fetchProjects() {
       try {
-        // Kullanıcı adını kendi kullanıcı adınızla değiştirin
+        console.log('Fetching GitHub projects...');
         const repos = await getEnhancedUserRepos('egecan12');
-        setProjects(repos);
+        console.log('Fetched repos:', repos);
+        if (repos && repos.length > 0) {
+          // README resimlerini kullanma, sadece bizim resimlerimizi kullan
+          setProjects(fallbackProjects);
+        } else {
+          console.log('No repos found, using fallback projects');
+          setProjects(fallbackProjects);
+        }
       } catch (error) {
-        console.error('Projeler yüklenirken hata oluştu:', error);
+        console.error('Error fetching projects:', error);
+        setProjects(fallbackProjects);
       } finally {
         setLoading(false);
       }
@@ -93,27 +109,57 @@ export default function HomePage() {
   const fallbackProjects = [
     {
       id: 1,
-      name: 'Portfolio Website',
-      description: 'A personal portfolio website built with Next.js and Material UI',
-      tech: ['Next.js', 'TypeScript', 'MUI'],
-      github: 'https://github.com/yourusername/portfolio',
-      demo: 'https://yourportfolio.com'
+      name: 'AI-Integrated Pokedex',
+      description: 'A modern Pokedex application that uses AI to detect and identify Pokemon in real-time using device camera. Features include real-time Pokemon detection, voice synthesis, PWA support, and detailed Pokemon stats.',
+      tech: ['React', 'AI', 'PWA', 'Web APIs'],
+      github: 'https://github.com/egecan12/Ai-Integrated-Pokedex',
+      demo: 'https://egecan12.github.io/Ai-Integrated-Pokedex/',
+      readmeImage: '/images/pokedex-ss.png'
     },
     {
       id: 2,
-      name: 'E-commerce Platform',
-      description: 'A full-stack e-commerce platform with user authentication and payment processing',
-      tech: ['React', 'Node.js', 'MongoDB'],
-      github: 'https://github.com/yourusername/ecommerce',
-      demo: 'https://yourecommerce.com'
+      name: 'Website Monitoring System',
+      description: 'An API that monitors specific changes on webpages. Features include automated monitoring, email/SMS notifications, Google Sheets integration, and customizable tracking intervals.',
+      tech: ['Node.js', 'MongoDB', 'Express.js', 'Twilio'],
+      github: 'https://github.com/egecan12/Website-Monitoring-System',
+      demo: 'https://website-change-tracker.onrender.com',
+      readmeImage: '/images/web-tracking.png'
     },
     {
       id: 3,
-      name: 'Task Management App',
-      description: 'A task management application with drag-and-drop functionality',
-      tech: ['React', 'Redux', 'Firebase'],
-      github: 'https://github.com/yourusername/taskmanager',
-      demo: 'https://yourtaskmanager.com'
+      name: 'Production Tracking System',
+      description: 'A comprehensive production tracking system built with React Native and web support. Helps businesses monitor and manage their production processes efficiently.',
+      tech: ['React Native', 'Web', 'Node.js', 'MongoDB'],
+      github: 'https://github.com/egecan12/Production-Tracking-System',
+      demo: null,
+      readmeImage: '/images/prodtrack-icon.png'
+    },
+    {
+      id: 4,
+      name: 'Delights of Constantinople',
+      description: 'A 2D fighting game built with PhaserJS. Features include multiple characters, special moves, and engaging gameplay mechanics.',
+      tech: ['PhaserJS', 'JavaScript', 'HTML5', 'CSS3'],
+      github: 'https://github.com/egecan12/PhaserJS-Delight-Fighter',
+      demo: null,
+      readmeImage: '/images/delight-fighter.png'
+    },
+    {
+      id: 5,
+      name: 'Diffinity',
+      description: 'A modern text comparison tool for macOS built with SwiftUI. Features include real-time diff highlighting, character-level comparison, line numbers, dark/light mode support, and native macOS integration.',
+      tech: ['Swift', 'SwiftUI', 'macOS', 'Xcode'],
+      github: 'https://github.com/egecan12/Diffinity',
+      demo: null,
+      readmeImage: '/images/diffinity-banner.png'
+    },
+    {
+      id: 6,
+      name: 'Anatolian Tiger',
+      description: 'A mobile game developed with Unity, featuring engaging gameplay mechanics and immersive graphics. The game showcases advanced game development techniques and cross-platform compatibility.',
+      tech: ['Unity', 'C#', 'Game Development', 'Mobile'],
+      github: 'https://github.com/egecan12/Anatolia_Mobile_Game',
+      demo: 'https://play.unity.com/en/games/56dd7836-6490-4042-91c4-99274e46870c/webgl',
+      readmeImage: '/images/anatolia.png'
     }
   ];
 
@@ -154,7 +200,7 @@ export default function HomePage() {
       github: 'https://github.com/egecan12/Diffinity'
     },
     {
-      name: 'Anatolia Game',
+      name: 'Delights of Constantinople v2',
       platform: 'Web',
       icon: '/images/anatolia-game.png',
       github: 'https://play.unity.com/en/games/56dd7836-6490-4042-91c4-99274e46870c/webgl'
@@ -393,70 +439,47 @@ export default function HomePage() {
                       <CardMedia
                         component="img"
                         height="140"
-                        image={project.readmeImage || `https://opengraph.githubassets.com/1/egecan12/${project.name}`}
+                        image={project.readmeImage}
                         alt={project.name}
-                        sx={{ objectFit: "cover" }}
+                        sx={{ 
+                          objectFit: "cover",
+                          height: '200px',
+                          backgroundColor: '#f5f5f5'
+                        }}
                       />
                       <CardContent sx={{ flexGrow: 1 }}>
                         <Typography variant="h5" component="div" fontWeight="bold" gutterBottom>
                           {project.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary" paragraph>
-                          {project.description || 'No description available'}
+                          {project.description}
                         </Typography>
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                          {project.language && (
+                          {project.tech.map((tech) => (
                             <Chip 
-                              key={project.language}
-                              icon={<CodeIcon fontSize="small" />}
-                              label={project.language}
-                              size="small" 
-                              color="primary"
-                              variant="outlined"
-                            />
-                          )}
-                          {project.topics && project.topics.map((topic) => (
-                            <Chip 
-                              key={topic} 
-                              label={topic} 
+                              key={tech} 
+                              label={tech} 
                               size="small" 
                               variant="outlined"
                             />
                           ))}
                         </Box>
-                        
-                        {project.stargazers_count > 0 && (
-                          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                            <StarIcon fontSize="small" sx={{ color: 'gold', mr: 0.5 }} />
-                            <Typography variant="body2" color="text.secondary">
-                              {project.stargazers_count}
-                            </Typography>
-                          </Box>
-                        )}
-                        {project.forks_count > 0 && (
-                          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, ml: project.stargazers_count > 0 ? 2 : 0 }}>
-                            <ForkRightIcon fontSize="small" sx={{ color: 'primary.main', mr: 0.5 }} />
-                            <Typography variant="body2" color="text.secondary">
-                              {project.forks_count}
-                            </Typography>
-                          </Box>
-                        )}
                       </CardContent>
                       <CardActions>
                         <Button 
                           size="small" 
                           startIcon={<GitHubIcon />} 
-                          href={project.html_url}
+                          href={project.github}
                           target="_blank"
                         >
                           Code
                         </Button>
-                        {project.homepage && (
+                        {project.demo && (
                           <Button 
                             size="small" 
                             startIcon={<OpenInNewIcon />} 
-                            href={project.homepage}
-            target="_blank"
+                            href={project.demo}
+                            target="_blank"
                           >
                             Demo
                           </Button>
@@ -513,14 +536,16 @@ export default function HomePage() {
                         >
                           Code
                         </Button>
-                        <Button 
-                          size="small" 
-                          startIcon={<OpenInNewIcon />} 
-                          href={project.demo}
-                          target="_blank"
-                        >
-                          Demo
-                        </Button>
+                        {project.demo && (
+                          <Button 
+                            size="small" 
+                            startIcon={<OpenInNewIcon />} 
+                            href={project.demo}
+                            target="_blank"
+                          >
+                            Demo
+                          </Button>
+                        )}
                       </CardActions>
                     </Card>
                   </Box>
