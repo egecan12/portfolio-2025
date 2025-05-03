@@ -558,7 +558,6 @@ export default function HomePage() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  transform: index === 1 ? 'translateY(-20px)' : 'none', // Center app slightly elevated
                 }}
               >
                 <Box 
@@ -573,7 +572,6 @@ export default function HomePage() {
                     backdropFilter: 'blur(10px)',
                     borderRadius: '20px',
                     boxShadow: '0 15px 35px rgba(0,0,0,0.2)',
-                    transform: 'translateY(0)',
                     transition: 'transform 0.2s ease-out',
                     '&:hover': {
                       transform: 'translateY(-10px)',
