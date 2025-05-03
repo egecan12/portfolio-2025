@@ -225,7 +225,7 @@ export default function HomePage() {
               }}
             >
         <Image
-                src="/images/egecankahyaoglu.png"
+                src="/images/egecankahyaoglu.jpg"
                 alt="Egecan Kahyaoglu"
                 fill
           priority
