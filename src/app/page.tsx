@@ -36,6 +36,8 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
+const profileImage = '/images/egecankahyaoglu.png';
+
 export default function HomePage() {
   // const t = useTranslations('Index');
   const [projects, setProjects] = useState<Array<GithubRepo & { readmeImage: string | null }>>([]);
@@ -224,14 +226,12 @@ export default function HomePage() {
                 mt: { xs: 4, md: 0 }
               }}
             >
-              <img
-                src="/images/egecankahyaoglu.png"
+              <Image
+                src={profileImage}
                 alt="Egecan Kahyaoglu"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
+                fill
+                priority
+                style={{ objectFit: 'cover' }}
               />
             </Box>
           </Stack>
