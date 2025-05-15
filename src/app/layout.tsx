@@ -42,9 +42,6 @@ export const metadata: Metadata = {
       follow: true,
       'max-image-preview': 'large'
     }
-  },
-  verification: {
-    google: 'Jp8ddzFpFUI9omm4o1Icb_Z3TJSuBZKIyBFq5X8',
   }
 };
 
@@ -55,6 +52,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="Jp8ddzFpFUI9omm4o1Icb_Z3TJSuBZKIyBFq5X8" />
+      </head>
       <body className={inter.className}>
         <Providers>
           {children}
