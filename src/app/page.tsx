@@ -157,16 +157,6 @@ export default function HomePage() {
       readmeImage: '/images/web-tracking.png'
     },
     {
-      id: 4,
-      name: 'Pokedex',
-      description: 'A modern Pokedex application that uses AI to detect and identify Pokemon in real-time using device camera. Features include real-time Pokemon detection, voice synthesis, PWA support, and detailed Pokemon stats.',
-      howBuilt: 'Advanced AI-powered Pokemon recognition system built with modern web technologies.',
-      tech: ['React', 'AI', 'PWA', 'Web APIs'],
-      github: 'https://github.com/egecan12/Ai-Integrated-Pokedex',
-      demo: 'https://egecan12.github.io/Ai-Integrated-Pokedex/',
-      readmeImage: '/images/pokedex-ss.png'
-    },
-    {
       id: 5,
       name: 'Diffinity App',
       description: 'A modern text comparison tool for macOS built with SwiftUI. Features include real-time diff highlighting, character-level comparison, line numbers, dark/light mode support, and native macOS integration.',
