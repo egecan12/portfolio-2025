@@ -35,6 +35,9 @@ import AndroidIcon from '@mui/icons-material/Android';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const profileImage = '/images/egecankahyaoglu.png';
 
@@ -50,6 +53,20 @@ export default function HomePage() {
     readmeImage: string;
   }>>([]);
   const [loading, setLoading] = useState(true);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  
+  // Carousel navigation functions
+  const handlePrevious = () => {
+    setCurrentProjectIndex((prevIndex) => 
+      prevIndex === 0 ? fallbackProjects.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentProjectIndex((prevIndex) => 
+      prevIndex === fallbackProjects.length - 1 ? 0 : prevIndex + 1
+    );
+  };
   
   // GitHub projeleri için veri çekme
   useEffect(() => {
@@ -109,43 +126,49 @@ export default function HomePage() {
   const fallbackProjects = [
     {
       id: 1,
-      name: 'AI-Integrated Pokedex',
+      name: 'Location Notebook App',
+      description: 'I developed this weeb app to help people save and organize their favorite places around the world. Many travelers and locals struggle to remember great restaurants, parks, cafes they\'ve discovered, so I wanted to create a platform where users can pin their favorite locations on a corkboard-style interface.',
+      howBuilt: 'I built this application using Angular and TypeScript for the frontend architecture. The project features a responsive corkboard design with pinned location cards, each containing coordinates, descriptions, and photos. I implemented efficient data binding and component-based architecture that Angular provides, along with TypeScript\'s strong typing for better development experience and code reliability.',
+      tech: ['#Angular', '#TypeScript', '#MEAN Stack', '#Docker'],
+      github: 'https://github.com/egecan12/ReiseMerker',
+      demo: 'https://reisemerker-client-93ff.onrender.com',
+      readmeImage: '/images/pokedex-ss.png',
+      videoSource: '/videos/location-notebook.mp4'
+    },
+    {
+      id: 2,
+      name: 'Delights of Constantinople (2019)',
+      description: 'This was my very first project, developed in 2019. I built it to learn JavaScript and DOM manipulation by creating a game from scratch with Phaser.js. Although the architecture is far from perfect, I\'m happy that my first project still runs and brings back memories. It\'s a meaningful milestone for me, showing how far I\'ve come as a developer.',
+      howBuilt: 'Built a 2D fighting game using Phaser.js framework. Features include multiple characters, special moves, and engaging gameplay mechanics.',
+      tech: ['#JavaScript', '#HTML', '#PhaserJS', '#MongoDB'],
+      github: 'https://github.com/egecan12/PhaserJS-Delight-Fighter',
+      demo: 'https://web-game-delight-fighter.onrender.com/',
+      readmeImage: '/images/delight-fighter.png',
+      videoSource: '/videos/delights-of-cons.mp4'
+    },
+    {
+      id: 3,
+      name: 'Website Tracker API',
+      description: 'I created this project to automate website monitoring for businesses. Many companies need real-time tracking of competitor websites and important updates without manual checking.',
+      howBuilt: 'I developed this using Node.js and Express.js backend with MongoDB for data storage. The system includes advanced web scraping algorithms, SMS notifications via Twilio, and Google Sheets integration for detailed reporting.',
+      tech: ['#Node.js', '#Express.js', '#MongoDB', '#Twilio', '#Web Scraping'],
+      github: 'https://github.com/egecan12/Website-Monitoring-System',
+      demo: 'https://website-change-tracker.onrender.com',
+      readmeImage: '/images/web-tracking.png'
+    },
+    {
+      id: 4,
+      name: 'Pokedex',
       description: 'A modern Pokedex application that uses AI to detect and identify Pokemon in real-time using device camera. Features include real-time Pokemon detection, voice synthesis, PWA support, and detailed Pokemon stats.',
+      howBuilt: 'Advanced AI-powered Pokemon recognition system built with modern web technologies.',
       tech: ['React', 'AI', 'PWA', 'Web APIs'],
       github: 'https://github.com/egecan12/Ai-Integrated-Pokedex',
       demo: 'https://egecan12.github.io/Ai-Integrated-Pokedex/',
       readmeImage: '/images/pokedex-ss.png'
     },
     {
-      id: 2,
-      name: 'Website Monitoring System',
-      description: 'An API that monitors specific changes on webpages. Features include automated monitoring, email/SMS notifications, Google Sheets integration, and customizable tracking intervals.',
-      tech: ['Node.js', 'MongoDB', 'Express.js', 'Twilio'],
-      github: 'https://github.com/egecan12/Website-Monitoring-System',
-      demo: 'https://website-change-tracker.onrender.com',
-      readmeImage: '/images/web-tracking.png'
-    },
-    {
-      id: 3,
-      name: 'Production Tracking System',
-      description: 'A comprehensive production tracking system built with React Native and web support. Helps businesses monitor and manage their production processes efficiently.',
-      tech: ['React Native', 'Web', 'Node.js', 'MongoDB'],
-      github: 'https://github.com/egecan12/Production-Tracking-System',
-      demo: null,
-      readmeImage: '/images/prodtrack-icon.png'
-    },
-    {
-      id: 4,
-      name: 'Delights of Constantinople',
-      description: 'A 2D fighting game built with PhaserJS. Features include multiple characters, special moves, and engaging gameplay mechanics.',
-      tech: ['PhaserJS', 'JavaScript', 'HTML5', 'CSS3'],
-      github: 'https://github.com/egecan12/PhaserJS-Delight-Fighter',
-      demo: 'https://web-game-delight-fighter.onrender.com/',
-      readmeImage: '/images/delight-fighter.png'
-    },
-    {
       id: 5,
-      name: 'Diffinity',
+      name: 'Diffinity App',
       description: 'A modern text comparison tool for macOS built with SwiftUI. Features include real-time diff highlighting, character-level comparison, line numbers, dark/light mode support, and native macOS integration.',
       tech: ['Swift', 'SwiftUI', 'macOS', 'Xcode'],
       github: 'https://github.com/egecan12/Diffinity',
@@ -163,21 +186,7 @@ export default function HomePage() {
     }
   ];
 
-  // Demo article data - replace with your own
-  const articles = [
-    {
-      title: 'Building a Modern Portfolio with Next.js and MUI',
-      description: 'Learn how to create a professional developer portfolio using Next.js, TypeScript, and Material UI',
-      date: 'June 15, 2023',
-      link: 'https://yourblog.com/portfolio-tutorial'
-    },
-    {
-      title: 'The Power of TypeScript in React Applications',
-      description: 'Discover how TypeScript improves developer experience and code quality in React projects',
-      date: 'May 3, 2023',
-      link: 'https://yourblog.com/typescript-react'
-    }
-  ];
+
 
   // Applications data with platform information only
   const applications = [
@@ -410,147 +419,531 @@ export default function HomePage() {
       </Box>
 
       {/* Projects Section */}
-      <Box id="projects" sx={{ py: 10, bgcolor: '#c98a02' }}>
+      <Box id="projects" sx={{ 
+        py: 10, 
+        background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
+        color: 'white',
+        position: 'relative',
+        overflow: 'visible' 
+      }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1} color="inherit">
+          <Typography variant="h3" fontWeight="bold" mb={3} color="white" textAlign="center">
             Recent Projects
           </Typography>
-          <Divider sx={{ mb: 4, bgcolor: 'rgba(0, 0, 0, 0.2)' }} />
           
           {loading ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 6 }}>
               <CircularProgress size={60} thickness={4} />
             </Box>
           ) : (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-              {projects && projects.length > 0 ? (
-                projects.map((project) => (
-                  <Box 
-                    key={project.id} 
-                    sx={{ 
-                      width: { 
-                        xs: '100%', 
-                        sm: 'calc(50% - 16px)', 
-                        lg: 'calc(33.333% - 21.333px)' 
-                      } 
-                    }}
-                  >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                      <CardMedia
-                        component="img"
-                        height="140"
-                        image={project.readmeImage}
-                        alt={project.name}
-                        sx={{ 
-                          objectFit: "cover",
-                          height: '200px',
-                          backgroundColor: '#f5f5f5'
-                        }}
-                      />
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography variant="h5" component="div" fontWeight="bold" gutterBottom>
-                          {project.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" paragraph>
-                          {project.description}
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                          {project.tech.map((tech) => (
-                            <Chip 
-                              key={tech} 
-                              label={tech} 
-                              size="small" 
-                              variant="outlined"
-                            />
-                          ))}
-                        </Box>
-                      </CardContent>
-                      <CardActions>
-                        <Button 
-                          size="small" 
-                          startIcon={<GitHubIcon />} 
-                          href={project.github}
-                          target="_blank"
-                        >
-                          Code
-                        </Button>
-                        {project.demo && (
-                          <Button 
-                            size="small" 
-                            startIcon={<OpenInNewIcon />} 
-                            href={project.demo}
-                            target="_blank"
+            <Box sx={{ position: 'relative' }}>
+              {/* Navigation Arrows */}
+              <IconButton
+                onClick={handlePrevious}
+                sx={{
+                  position: 'fixed',
+                  left: { xs: 20, sm: 40, md: 60, lg: 80 },
+                  top: '50vh',
+                  transform: 'translateY(-50%)',
+                  
+                  // Glassmorphism design
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  
+                  // Shape and size
+                  width: { xs: 56, sm: 64, md: 72 },
+                  height: { xs: 56, sm: 64, md: 72 },
+                  borderRadius: '50%',
+                  
+                  // Colors and effects
+                  color: '#fff',
+                  zIndex: 1000,
+                  
+                  // Modern shadows
+                  boxShadow: `
+                    0 8px 32px rgba(0,0,0,0.12),
+                    0 0 0 1px rgba(255,255,255,0.05),
+                    inset 0 1px 0 rgba(255,255,255,0.1)
+                  `,
+                  
+                  // Smooth transitions
+                  transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
+                  
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15))',
+                    transform: 'translateY(-50%) scale(1.15)',
+                    boxShadow: `
+                      0 16px 48px rgba(0,0,0,0.2),
+                      0 0 0 1px rgba(255,255,255,0.1),
+                      inset 0 1px 0 rgba(255,255,255,0.2)
+                    `,
+                    '& .MuiSvgIcon-root': {
+                      transform: 'translateX(-2px)'
+                    }
+                  },
+                  
+                  '&:active': {
+                    transform: 'translateY(-50%) scale(0.95)',
+                    transition: 'all 0.1s ease'
+                  },
+                  
+                  '@media (max-width: 960px)': {
+                    left: 24,
+                    top: '45vh',
+                    width: 64,
+                    height: 64,
+                    '&:hover': {
+                      transform: 'translateY(-50%) scale(1.1)'
+                    },
+                    '&:active': {
+                      transform: 'translateY(-50%) scale(0.95)'
+                    }
+                  }
+                }}
+              >
+                <ArrowBackIosIcon sx={{ 
+                  fontSize: { xs: 24, sm: 26, md: 28 },
+                  transition: 'transform 0.3s ease',
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+                }} />
+              </IconButton>
+
+              <IconButton
+                onClick={handleNext}
+                sx={{
+                  position: 'fixed',
+                  right: { xs: 20, sm: 40, md: 60, lg: 80 },
+                  top: '50vh',
+                  transform: 'translateY(-50%)',
+                  
+                  // Glassmorphism design
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  
+                  // Shape and size
+                  width: { xs: 56, sm: 64, md: 72 },
+                  height: { xs: 56, sm: 64, md: 72 },
+                  borderRadius: '50%',
+                  
+                  // Colors and effects
+                  color: '#fff',
+                  zIndex: 1000,
+                  
+                  // Modern shadows
+                  boxShadow: `
+                    0 8px 32px rgba(0,0,0,0.12),
+                    0 0 0 1px rgba(255,255,255,0.05),
+                    inset 0 1px 0 rgba(255,255,255,0.1)
+                  `,
+                  
+                  // Smooth transitions
+                  transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
+                  
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15))',
+                    transform: 'translateY(-50%) scale(1.15)',
+                    boxShadow: `
+                      0 16px 48px rgba(0,0,0,0.2),
+                      0 0 0 1px rgba(255,255,255,0.1),
+                      inset 0 1px 0 rgba(255,255,255,0.2)
+                    `,
+                    '& .MuiSvgIconRoot': {
+                      transform: 'translateX(2px)'
+                    }
+                  },
+                  
+                  '&:active': {
+                    transform: 'translateY(-50%) scale(0.95)',
+                    transition: 'all 0.1s ease'
+                  },
+                  
+                  '@media (max-width: 960px)': {
+                    right: 24,
+                    top: '45vh',
+                    width: 64,
+                    height: 64,
+                    '&:hover': {
+                      transform: 'translateY(-50%) scale(1.1)'
+                    },
+                    '&:active': {
+                      transform: 'translateY(-50%) scale(0.95)'
+                    }
+                  }
+                }}
+              >
+                <ArrowForwardIosIcon sx={{ 
+                  fontSize: { xs: 24, sm: 26, md: 28 },
+                  transition: 'transform 0.3s ease',
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+                }} />
+              </IconButton>
+
+              <Paper 
+                elevation={3}
+                sx={{ 
+                  backgroundColor: '#4a5568',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  mx: { xs: 1, sm: 2, md: 3 }
+                }}
+              >
+                {/* Project Counter */}
+                <Box sx={{ 
+                  position: 'absolute', 
+                  top: 20, 
+                  right: 20, 
+                  zIndex: 10,
+                  display: 'flex',
+                  gap: 1
+                }}>
+                  {fallbackProjects.map((_, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: '50%',
+                        backgroundColor: index === currentProjectIndex ? '#3b82f6' : 'rgba(255, 255, 255, 0.3)',
+                        transition: 'all 0.3s ease'
+                      }}
+                    />
+                  ))}
+                </Box>
+
+                <Box sx={{ 
+                  display: { xs: 'block', md: 'flex' }, 
+                  minHeight: { xs: 'auto', md: '500px' },
+                  flexDirection: { xs: 'column', md: 'row' }
+                }}>
+                  {/* Karousel'da her seferinde tek proje gösterecek */}
+                  {(() => {
+                    const currentProject = fallbackProjects[currentProjectIndex];
+                    return (
+                      <>
+                        {/* Sol Taraf - Video/Demo/GitHub Row */}
+                        <Box sx={{ 
+                          flex: 1, 
+                          p: { xs: 2, md: 3 },
+                          mb: { xs: 3, md: 0 }
+                        }}>
+                          {/* Browser Header */}
+                          <Box 
+                            sx={{
+                              backgroundColor: '#2d3748',
+                              borderRadius: '8px 8px 0 0',
+                              p: 1,
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 1,
+                              mb: 0
+                            }}
                           >
-                            Demo
-                          </Button>
-                        )}
-                      </CardActions>
-                    </Card>
-                  </Box>
-                ))
-              ) : (
-                // Yedek projeler (API hatası veya sonuç yoksa)
-                fallbackProjects.map((project) => (
-                  <Box 
-                    key={project.id} 
-                    sx={{ 
-                      width: { 
-                        xs: '100%', 
-                        sm: 'calc(50% - 16px)', 
-                        lg: 'calc(33.333% - 21.333px)' 
-                      } 
-                    }}
-                  >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                      <CardMedia
-                        component="img"
-                        height="140"
-                        image={`https://opengraph.githubassets.com/1/yourusername/${project.name.toLowerCase().replace(/\s+/g, '-')}`}
-                        alt={project.name}
-                        sx={{ objectFit: "cover" }}
-                      />
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography variant="h5" component="div" fontWeight="bold" gutterBottom>
-                          {project.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" paragraph>
-                          {project.description}
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                          {project.tech.map((tech) => (
-                            <Chip 
-                              key={tech} 
-                              label={tech} 
-                              size="small" 
-                              variant="outlined"
-                            />
-                          ))}
-                        </Box>
-                      </CardContent>
-                      <CardActions>
-                        <Button 
-                          size="small" 
-                          startIcon={<GitHubIcon />} 
-                          href={project.github}
-                          target="_blank"
-                        >
-                          Code
-                        </Button>
-                        {project.demo && (
-                          <Button 
-                            size="small" 
-                            startIcon={<OpenInNewIcon />} 
-                            href={project.demo}
-                            target="_blank"
+                            <Box sx={{ width: 12, height: 12, backgroundColor: '#ef4444', borderRadius: '50%' }} />
+                            <Box sx={{ width: 12, height: 12, backgroundColor: '#f59e0b', borderRadius: '50%' }} />
+                            <Box sx={{ width: 12, height: 12, backgroundColor: '#10b981', borderRadius: '50%' }} />
+                            <Box sx={{ flexGrow: 1 }} />
+                            <Typography sx={{ color: '#9ca3af', fontSize: '0.8rem' }}>
+                              My Projects
+                            </Typography>
+                          </Box>
+
+                          {/* Video Player */}
+                          <Box 
+                            sx={{
+                              backgroundColor: '#000',
+                              borderRadius: '0 0 8px 8px',
+                              overflow: 'hidden',
+                              mb: 3
+                            }}
                           >
-                            Demo
-                          </Button>
-                        )}
-                      </CardActions>
-                    </Card>
-                  </Box>
-                ))
-              )}
+                            {currentProject.videoSource ? (
+                              // Special mobile mockup for Location Notebook
+                              currentProject.id === 1 ? (
+                                <Box sx={{ 
+                                  display: 'flex', 
+                                  justifyContent: 'center', 
+                                  p: { xs: 2, md: 3 }
+                                }}>
+                                  {/* Mobile Phone Frame */}
+                                  <Box
+                                    sx={{
+                                      width: { xs: 240, sm: 280 },
+                                      height: { xs: 480, sm: 560 },
+                                      backgroundColor: '#1a1a1a',
+                                      borderRadius: '25px',
+                                      padding: '8px',
+                                      boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                                      position: 'relative',
+                                      '&::before': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        top: '15px',
+                                        left: '50%',
+                                        transform: 'translateX(-50%)',
+                                        width: '60px',
+                                        height: '4px',
+                                        backgroundColor: '#333',
+                                        borderRadius: '2px'
+                                      }
+                                    }}
+                                  >
+                                    {/* Screen */}
+                                    <Box
+                                      sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: '#000',
+                                        borderRadius: '20px',
+                                        overflow: 'hidden',
+                                        position: 'relative'
+                                      }}
+                                  >
+                                      <video
+                                        style={{
+                                          width: '100%',
+                                          height: '100%',
+                                          objectFit: 'cover'
+                                        }}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                      >
+                                        <source src={currentProject.videoSource} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                      
+                                      {/* Home Indicator */}
+                                      <Box
+                                        sx={{
+                                          position: 'absolute',
+                                          bottom: '8px',
+                                          left: '50%',
+                                          transform: 'translateX(-50%)',
+                                          width: '120px',
+                                          height: '4px',
+                                          backgroundColor: 'rgba(255,255,255,0.3)',
+                                          borderRadius: '2px'
+                                        }}
+                                      />
+                                    </Box>
+                                  </Box>
+                                </Box>
+                              ) : (
+                                // Regular video player for other projects
+                                <Box
+                                  sx={{
+                                    aspectRatio: '16/9',
+                                    backgroundColor: '#000',
+                                    position: 'relative'
+                                  }}
+                                >
+                                  <video
+                                    style={{
+                                      width: '100%',
+                                      height: '100%',
+                                      objectFit: 'cover'
+                                    }}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                  >
+                                    <source src={currentProject.videoSource} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                </Box>
+                              )
+                            ) : (
+                              <Box
+                                sx={{
+                                  aspectRatio: '16/9',
+                                  backgroundColor: '#000',
+                                  position: 'relative',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  backgroundImage: `url(${currentProject.readmeImage})`,
+                                  backgroundSize: 'cover',
+                                  backgroundPosition: 'center',
+                                }}
+                              >
+                                {/* Play Button Overlay */}
+                                <Box
+                                  sx={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: '50%',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    '&:hover': {
+                                      backgroundColor: '#fff',
+                                      transform: 'scale(1.1)'
+                                    }
+                                  }}
+                                >
+                                  <PlayArrowIcon 
+                                    sx={{ 
+                                      fontSize: 40, 
+                                      color: '#000',
+                                      ml: 0.5 
+                                    }} 
+                                  />
+                                </Box>
+                              </Box>
+                            )}
+                          </Box>
+
+                          {/* Large Action Buttons */}
+                          <Box sx={{ 
+                            display: 'flex', 
+                            gap: 2,
+                              flexDirection: { xs: 'column', sm: 'row' }
+                          }}>
+                            {currentProject.demo && (
+                              <Button
+                                variant="contained"
+                                href={currentProject.demo}
+                                target="_blank"
+                                sx={{
+                                  backgroundColor: '#3b82f6',
+                                  color: 'white',
+                                  flex: 1,
+                                  py: 1.5,
+                                  '&:hover': { backgroundColor: '#2563eb' }
+                                }}
+                              >
+                                Demo
+                              </Button>
+                            )}
+                            <Button
+                              variant="outlined"
+                              startIcon={<GitHubIcon />}
+                              href={currentProject.github}
+                              target="_blank"
+                              sx={{
+                                borderColor: '#9ca3af',
+                                color: '#d1d5db',
+                                flex: 1,
+                                py: 1.5,
+                                '&:hover': {
+                                  borderColor: '#6b7280',
+                                  backgroundColor: 'rgba(255,255,255,0.1)'
+                                }
+                              }}
+                            >
+                              GitHub
+                            </Button>
+                          </Box>
+                        </Box>
+
+                        {/* Sağ Taraf - Text Content Row */}
+                        <Box sx={{ 
+                          flex: 1, 
+                          p: { xs: 2, md: 4 }, 
+                          display: 'flex', 
+                          flexDirection: 'column', 
+                          justifyContent: 'center' 
+                        }}>
+                          {/* Project Title */}
+                          <Typography 
+                            variant="h4" 
+                            fontWeight="bold" 
+                            mb={4}
+                            sx={{ 
+                              color: '#60a5fa', 
+                              fontSize: { xs: '1.5rem', md: '2rem' }
+                            }}
+                          >
+                            {currentProject.name}
+                          </Typography>
+
+                          {/* Why I built this project */}
+                          <Box sx={{ mb: 4 }}>
+                            <Typography 
+                              variant="h6" 
+                              fontWeight="bold" 
+                              mb={3}
+                              sx={{ 
+                                color: '#fff',
+                                fontSize: '1.2rem'
+                              }}
+                            >
+                              Why I built this project
+                            </Typography>
+                            <Typography 
+                              sx={{ 
+                                color: '#cbd5e0',
+                                lineHeight: 1.8,
+                                fontSize: '1rem'
+                              }}
+                            >
+                              {currentProject.description}
+                            </Typography>
+                          </Box>
+
+                          {/* How I built it */}
+                          <Box sx={{ mb: 4 }}>
+                            <Typography 
+                              variant="h6" 
+                              fontWeight="bold" 
+                              mb={3}
+                              sx={{ 
+                                color: '#fff',
+                                fontSize: '1.2rem'
+                              }}
+                            >
+                              How I built it
+                            </Typography>
+                            <Typography 
+                              sx={{ 
+                                color: '#cbd5e0',
+                                lineHeight: 1.8,
+                                fontSize: '1rem',
+                                mb: 4
+                              }}
+                            >
+                              {currentProject.howBuilt || 'Built using modern web technologies and best practices.'}
+                            </Typography>
+
+                            {/* Technology Tags */}
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+                              {currentProject.tech.map((tech, techIndex) => (
+                                <Box
+                                  key={techIndex}
+                                  sx={{
+                                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                                    borderRadius: '20px',
+                                    px: 2,
+                                    py: 1,
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      color: '#60a5fa',
+                                      fontSize: '0.9rem',
+                                      fontWeight: 500
+                                    }}
+                                  >
+                                    {tech}
+                                  </Typography>
+                                </Box>
+                              ))}
+                            </Box>
+                          </Box>
+                        </Box>
+                      </>
+                    );
+                  })()}
+                </Box>
+              </Paper>
             </Box>
           )}
         </Container>

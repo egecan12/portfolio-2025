@@ -6,9 +6,13 @@ import {
   Typography, 
   Card, 
   CardContent, 
+  CardActions,
+  CardMedia,
   Button, 
   Paper,
-  IconButton
+  IconButton,
+  Chip,
+  CircularProgress
 } from '@mui/material';
 import Navbar from '@/components/Navbar';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -16,6 +20,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import FolderIcon from '@mui/icons-material/Folder';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useState } from 'react';
 
 const projects = [
@@ -60,6 +65,64 @@ const projects = [
     githubLink: "https://github.com/egecan12/Ai-Integrated-Pokedex",
     demoLink: "https://egecan12.github.io/Ai-Integrated-Pokedex/",
       tech: ["#React", "#Next.js", "#AI/ML", "#Web APIs", "#Camera Integration"]
+  }
+];
+
+// Grid layout için ayrı project verisi
+const gridProjects = [
+  {
+    id: 1,
+    name: 'Location Notebook',
+    description: 'I developed Location Notebook to help people save and organize their favorite places around the world. Many travelers and locals struggle to remember great restaurants, parks, cafes they\'ve discovered, so I wanted to create an intuitive platform where users can pin their favorite locations on a corkboard-style interface.',
+    tech: ['Angular', 'TypeScript', 'MEAN Stack', 'Docker'],
+    github: 'https://github.com/egecan12/ReiseMerker',
+    demo: 'https://reisemerker-client-93ff.onrender.com',
+    readmeImage: '/images/pokedex-ss.png'
+  },
+  {
+    id: 2,
+    name: 'Delights of Constantinople v2',
+    description: "This was my very first project, developed in 2019. I built it to learn JavaScript and DOM manipulation by creating a game from scratch with Phaser.js. Although the architecture is far from perfect, I'm happy for my first project still runs and brings back memories.",
+    tech: ['JavaScript', 'HTML', 'PhaserJS', 'MongoDB'],
+    github: 'https://github.com/egecan12/PhaserJS-Delight-Fighter',
+    demo: 'https://web-game-delight-fighter.onrender.com/',
+    readmeImage: '/images/delight-fighter.png'
+  },
+  {
+    id: 3,
+    name: 'Website Tracker Pro',
+    description: 'I created this project to automate website monitoring for businesses. Many companies need real-time tracking of competitor websites and important updates without manual checking. The system includes SMS notifications and detailed reporting.',
+    tech: ['Node.js', 'Express.js', 'MongoDB', 'Twilio', 'Web Scraping'],
+    github: 'https://github.com/egecan12/Website-Monitoring-System',
+    demo: 'https://website-change-tracker.onrender.com',
+    readmeImage: '/images/web-tracking.png'
+  },
+  {
+    id: 4,
+    name: 'AI Pokedex Hub',
+    description: 'This project combines artificial intelligence with Pokemon recognition to create an interactive Pokedex experience. I wanted users to identify Pokemon instantly using their camera.',
+    tech: ['React', 'Next.js', 'AI/ML', 'Web APIs', 'Camera Integration'],
+    github: 'https://github.com/egecan12/Ai-Integrated-Pokedex',
+    demo: 'https://egecan12.github.io/Ai-Integrated-Pokedex/',
+    readmeImage: '/images/pokedex-ss.png'
+  },
+  {
+    id: 5,
+    name: 'Diffinity',
+    description: 'A modern text comparison tool for macOS built with SwiftUI. Features include real-time diff highlighting, character-level comparison, line numbers, dark/light mode support, and native macOS integration.',
+    tech: ['Swift', 'SwiftUI', 'macOS', 'Xcode'],
+    github: 'https://github.com/egecan12/Diffinity',
+    demo: null,
+    readmeImage: '/images/diffinity-banner.png'
+  },
+  {
+    id: 6,
+    name: 'Anatolian Tiger',
+    description: 'A mobile game developed with Unity, featuring engaging gameplay mechanics and immersive graphics. The game showcases advanced game development techniques and cross-platform compatibility.',
+    tech: ['Unity', 'C#', 'Game Development', 'Mobile'],
+    github: 'https://github.com/egecan12/Anatolia_Mobile_Game',
+    demo: 'https://play.unity.com/en/games/56dd7836-6490-4042-91c4-99274e46870c/webgl',
+    readmeImage: '/images/anatolia.png'
   }
 ];
 
@@ -620,6 +683,85 @@ export default function ProjectsPage() {
             </Box>
           </Paper>
         </Box>
+      </Box>
+
+      {/* Traditional Projects Grid Section */}
+      <Box sx={{ py: 10, bgcolor: '#c98a02' }}>
+        <Container maxWidth="lg">
+          <Typography variant="h3" fontWeight="bold" mb={1} color="inherit">
+            All Projects
+          </Typography>
+          <Typography variant="h6" mb={4} sx={{ opacity: 0.9, color: 'inherit' }}>
+            Explore the complete collection of my work
+          </Typography>
+          
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+            {gridProjects.map((project) => (
+              <Box 
+                key={project.id} 
+                sx={{ 
+                  width: { 
+                    xs: '100%', 
+                    sm: 'calc(50% - 16px)', 
+                    lg: 'calc(33.333% - 21.333px)' 
+                  } 
+                }}
+              >
+                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={project.readmeImage}
+                    alt={project.name}
+                    sx={{ 
+                      objectFit: "cover",
+                      height: '200px',
+                      backgroundColor: '#f5f5f5'
+                    }}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h5" component="div" fontWeight="bold" gutterBottom>
+                      {project.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      {project.description}
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
+                      {project.tech.map((tech) => (
+                        <Chip 
+                          key={tech} 
+                          label={tech} 
+                          size="small" 
+                          variant="outlined"
+                        />
+                      ))}
+                    </Box>
+                  </CardContent>
+                  <CardActions>
+                    <Button 
+                      size="small" 
+                      startIcon={<GitHubIcon />} 
+                      href={project.github}
+                      target="_blank"
+                    >
+                      Code
+                    </Button>
+                    {project.demo && (
+                      <Button 
+                        size="small" 
+                        startIcon={<OpenInNewIcon />} 
+                        href={project.demo}
+                        target="_blank"
+                      >
+                        Demo
+                      </Button>
+                    )}
+                  </CardActions>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Container>
       </Box>
     </Box>
   );
