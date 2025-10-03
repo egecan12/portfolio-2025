@@ -7,10 +7,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LanguageIcon from '@mui/icons-material/Language';
+import HomeIcon from '@mui/icons-material/Home';
 
 const navLinks = [
   { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
+  { href: '/projects', label: 'Projects' },
   { href: '#applications', label: 'Applications' },
   { href: '#contact', label: 'Contact' },
 ];
@@ -49,6 +50,20 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
+            {/* Home Button */}
+            <Button
+              component={Link}
+              href="/"
+              color="inherit"
+              startIcon={<HomeIcon />}
+              sx={{ 
+                color: 'text.secondary',
+                '&:hover': { color: 'primary.main' }
+              }}
+            >
+              Home
+            </Button>
+            
             {navLinks.map((link) => (
               <Button
                 key={link.href}
@@ -156,6 +171,18 @@ export default function Navbar() {
           </Typography>
           <Divider sx={{ mb: 2 }} />
           <List>
+            {/* Home Link */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/"
+                onClick={handleDrawerToggle}
+              >
+                <HomeIcon sx={{ mr: 2 }} />
+                <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
+            
             {navLinks.map((link) => (
               <ListItem key={link.href} disablePadding>
                 <ListItemButton

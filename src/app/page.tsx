@@ -568,11 +568,12 @@ export default function HomePage() {
           </Typography>
           
           <Box sx={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
+            display: 'grid', 
+            gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
             justifyContent: 'center',
-            gap: { xs: 4, md: 8 },
-            mt: 6
+            gap: { xs: 2, sm: 3, md: 4 },
+            mt: 6,
+            px: { xs: 2, md: 0 }
           }}>
             {applications.map((app, index) => (
               <Box 
@@ -585,13 +586,14 @@ export default function HomePage() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
+                  width: '100%'
                 }}
               >
                 <Box 
                   sx={{ 
-                    p: 3,
-                    width: 180,
-                    height: 180,
+                    p: { xs: 2, md: 3 },
+                    width: { xs: 120, md: 180 },
+                    height: { xs: 120, md: 180 },
                     display: 'flex', 
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -611,8 +613,8 @@ export default function HomePage() {
                     src={app.icon} 
                     alt={app.name} 
                     sx={{ 
-                      width: 120, 
-                      height: 120, 
+                      width: { xs: 80, md: 120 }, 
+                      height: { xs: 80, md: 120 },
                       objectFit: 'contain',
                       filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.2))',
                       transition: 'transform 0.2s ease-out',
@@ -622,27 +624,35 @@ export default function HomePage() {
                     }}
                   />
                 </Box>
-                <Box sx={{ mt: 2, textAlign: 'center' }}>
-                  <Typography variant="h6" fontWeight="bold" color="white" sx={{ mb: 0.5 }}>
+                <Box sx={{ mt: { xs: 1, md: 2 }, textAlign: 'center' }}>
+                  <Typography variant="h6" fontWeight="bold" color="white" sx={{ 
+                    mb: 0.5,
+                    fontSize: { xs: '0.9rem', md: '1.25rem' }
+                  }}>
                     {app.name}
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    gap: 0.5
+                  }}>
                     {app.platform === 'Mac' && (
-                      <AppleIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                      <AppleIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
                     )}
                     {app.platform === 'Web' && (
                       <>
-                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
                         {app.name === 'Anatolia Game' && (
-                          <SportsEsportsIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                          <SportsEsportsIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
                         )}
                       </>
                     )}
                     {app.platform === 'React Native & Web' && (
                       <>
-                        <AndroidIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
-                        <PhoneIphoneIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
-                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: 20 }} />
+                        <AndroidIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
+                        <PhoneIphoneIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
+                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
                       </>
                     )}
                   </Box>
