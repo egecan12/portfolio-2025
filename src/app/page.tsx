@@ -297,7 +297,7 @@ export default function HomePage() {
       <Box id="about" sx={{ py: 10 }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1}>
-            About Me
+            About My Journey
           </Typography>
           <Divider sx={{ mb: 4 }} />
           

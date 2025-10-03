@@ -77,7 +77,7 @@ const gridProjects = [
     tech: ['Angular', 'TypeScript', 'MEAN Stack', 'Docker'],
     github: 'https://github.com/egecan12/ReiseMerker',
     demo: 'https://reisemerker-client-93ff.onrender.com',
-    readmeImage: '/images/pokedex-ss.png'
+    readmeImage: '/images/note.png'
   },
   {
     id: 2,
@@ -689,10 +689,10 @@ export default function ProjectsPage() {
       <Box sx={{ py: 10, bgcolor: '#c98a02' }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={1} color="inherit">
-            All Projects
+            Recent Projects
           </Typography>
           <Typography variant="h6" mb={4} sx={{ opacity: 0.9, color: 'inherit' }}>
-            Explore the complete collection of my work
+            Explore the complete collection of my hobby projects
           </Typography>
           
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
