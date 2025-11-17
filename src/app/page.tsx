@@ -18,7 +18,6 @@ import {
   CardMedia,
   Paper,
   CircularProgress,
-  Grid,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -29,6 +28,7 @@ import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 import Navbar from '@/components/Navbar';
 import { getEnhancedUserRepos, type GithubRepo } from '@/lib/github';
+import { getDeveloperApps, type PlayStoreApp } from '@/lib/playstore';
 import AppleIcon from '@mui/icons-material/Apple';
 import PublicIcon from '@mui/icons-material/Public';
 import AndroidIcon from '@mui/icons-material/Android';
@@ -54,6 +54,8 @@ export default function HomePage() {
   }>>([]);
   const [loading, setLoading] = useState(true);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [androidApps, setAndroidApps] = useState<PlayStoreApp[]>([]);
+  const [loadingApps, setLoadingApps] = useState(true);
   
   // Carousel navigation functions
   const handlePrevious = () => {
@@ -91,6 +93,46 @@ export default function HomePage() {
     }
     
     fetchProjects();
+  }, []);
+
+  // Manuel Android uygulamaları listesi
+  const fallbackAndroidApps: PlayStoreApp[] = [
+    {
+      id: 'locationdiary',
+      title: 'LocationDiary',
+      description: 'Save and organize your favorite places around the world',
+      icon: '/images/locationdiary.png',
+      rating: 0,
+      installCount: '0+',
+      url: 'https://play.google.com/store/apps/dev?id=4826739613983721645',
+      developer: 'Kahyaoglu Software',
+      category: 'Travel & Local'
+    }
+  ];
+
+  // Android uygulamaları için veri çekme
+  useEffect(() => {
+    // Şimdilik direkt manuel listeyi kullan
+    setAndroidApps(fallbackAndroidApps);
+    setLoadingApps(false);
+    
+    // İleride API entegrasyonu için:
+    // async function fetchAndroidApps() {
+    //   try {
+    //     const apps = await getDeveloperApps('4826739613983721645');
+    //     if (apps && apps.length > 0) {
+    //       setAndroidApps(apps);
+    //     } else {
+    //       setAndroidApps(fallbackAndroidApps);
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching Android apps:', error);
+    //     setAndroidApps(fallbackAndroidApps);
+    //   } finally {
+    //     setLoadingApps(false);
+    //   }
+    // }
+    // fetchAndroidApps();
   }, []);
   
   // Structured data for SEO
@@ -286,9 +328,22 @@ export default function HomePage() {
       {/* About Section */}
       <Box id="about" sx={{ py: 10 }}>
         <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" mb={1}>
-            About My Journey
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+            <Typography variant="h3" fontWeight="bold">
+              About My Journey
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography component="span" sx={{ fontSize: '2rem', lineHeight: 1 }}>
+                🇹🇷
+              </Typography>
+              <Typography component="span" sx={{ fontSize: '2rem', lineHeight: 1 }}>
+                🇨🇦
+              </Typography>
+              <Typography component="span" sx={{ fontSize: '2rem', lineHeight: 1 }}>
+                🇩🇪
+              </Typography>
+            </Box>
+          </Box>
           <Divider sx={{ mb: 4 }} />
           
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={4}>
@@ -431,9 +486,9 @@ export default function HomePage() {
               <IconButton
                 onClick={handlePrevious}
                 sx={{
-                  position: 'fixed',
-                  left: { xs: 20, sm: 40, md: 60, lg: 80 },
-                  top: '50vh',
+                  position: 'absolute',
+                  left: { xs: -10, sm: -20, md: -40, lg: -60 },
+                  top: '50%',
                   transform: 'translateY(-50%)',
                   
                   // Glassmorphism design
@@ -479,8 +534,8 @@ export default function HomePage() {
                   },
                   
                   '@media (max-width: 960px)': {
-                    left: 24,
-                    top: '45vh',
+                    left: 4,
+                    top: '50%',
                     width: 64,
                     height: 64,
                     '&:hover': {
@@ -502,9 +557,9 @@ export default function HomePage() {
               <IconButton
                 onClick={handleNext}
                 sx={{
-                  position: 'fixed',
-                  right: { xs: 20, sm: 40, md: 60, lg: 80 },
-                  top: '50vh',
+                  position: 'absolute',
+                  right: { xs: -10, sm: -20, md: -40, lg: -60 },
+                  top: '50%',
                   transform: 'translateY(-50%)',
                   
                   // Glassmorphism design
@@ -550,8 +605,8 @@ export default function HomePage() {
                   },
                   
                   '@media (max-width: 960px)': {
-                    right: 24,
-                    top: '45vh',
+                    right: 4,
+                    top: '50%',
                     width: 64,
                     height: 64,
                     '&:hover': {
@@ -939,6 +994,225 @@ export default function HomePage() {
         </Container>
       </Box>
 
+      {/* Developer Accounts Section */}
+      <Box id="developer-accounts" sx={{ py: 10, bgcolor: '#1a1a2e' }}>
+        <Container maxWidth="lg">
+          <Typography variant="h3" fontWeight="bold" mb={1} color="white" textAlign="center">
+            Developer Accounts
+          </Typography>
+          <Divider sx={{ mb: 4, bgcolor: 'rgba(255, 255, 255, 0.2)' }} />
+          
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 4,
+            mt: 6
+          }}>
+            {/* Android Developer Account Card */}
+            <Card
+              sx={{
+                maxWidth: { xs: '100%', md: 500 },
+                backgroundColor: '#2d2d44',
+                borderRadius: 3,
+                overflow: 'hidden',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.4)'
+                }
+              }}
+            >
+              <CardContent sx={{ p: 4 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, gap: 3 }}>
+                  <Box
+                    sx={{
+                      width: { xs: 80, md: 100 },
+                      height: { xs: 80, md: 100 },
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                      backgroundColor: '#fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}
+                  >
+                    <Image
+                      src="/images/android-developer-logo.png"
+                      alt="Kahyaoglu Software Android Developer"
+                      width={100}
+                      height={100}
+                      style={{ objectFit: 'contain', padding: '8px' }}
+                    />
+                  </Box>
+                  <Box sx={{ flex: 1 }}>
+                    <Typography variant="h5" fontWeight="bold" color="white" mb={1}>
+                      Android Developer
+                    </Typography>
+                    <Typography variant="body2" color="rgba(255,255,255,0.7)">
+                      Kahyaoglu Software
+                    </Typography>
+                  </Box>
+                </Box>
+                
+                <Typography variant="body1" color="rgba(255,255,255,0.9)" paragraph sx={{ mb: 3 }}>
+                  I've recently launched my Android developer account on Google Play Store! As a software engineer passionate about mobile development, 
+                  I'm excited to share my Android applications with users worldwide. This marks a new chapter in my development journey, 
+                  expanding beyond web and desktop applications into the mobile ecosystem.
+                </Typography>
+                
+                <Typography variant="body2" color="rgba(255,255,255,0.7)" paragraph sx={{ mb: 3 }}>
+                  Stay tuned for innovative Android apps built with modern technologies and best practices. 
+                  I'm committed to creating high-quality, user-friendly mobile experiences.
+                </Typography>
+                
+                <Button
+                  variant="contained"
+                  startIcon={<AndroidIcon />}
+                  endIcon={<OpenInNewIcon />}
+                  href="https://play.google.com/store/apps/dev?id=4826739613983721645"
+                  target="_blank"
+                  sx={{
+                    backgroundColor: '#3ddc84',
+                    color: '#000',
+                    fontWeight: 'bold',
+                    px: 3,
+                    py: 1.5,
+                    '&:hover': {
+                      backgroundColor: '#34c271',
+                    }
+                  }}
+                >
+                  Visit Play Store Developer Page
+                </Button>
+              </CardContent>
+            </Card>
+          </Box>
+
+          {/* Android Apps Grid */}
+          {androidApps.length > 0 && (
+            <Box sx={{ mt: 8 }}>
+              <Typography variant="h4" fontWeight="bold" mb={3} color="white" textAlign="center">
+                My Android Applications
+              </Typography>
+              
+              {loadingApps ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', my: 6 }}>
+                  <CircularProgress sx={{ color: '#3ddc84' }} />
+                </Box>
+              ) : (
+                <Box sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+                  justifyContent: 'center',
+                  gap: { xs: 2, sm: 3, md: 4 },
+                  mt: 6,
+                  px: { xs: 2, md: 0 }
+                }}>
+                  {androidApps.map((app) => (
+                    <Box 
+                      key={app.id} 
+                      component="a"
+                      href={app.url || `https://play.google.com/store/apps/details?id=${app.id}`}
+                      target="_blank"
+                      sx={{ 
+                        textDecoration: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        width: '100%'
+                      }}
+                    >
+                      <Box 
+                        sx={{ 
+                          p: { xs: 2, md: 3 },
+                          width: { xs: 120, md: 180 },
+                          height: { xs: 120, md: 180 },
+                          display: 'flex', 
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          background: 'rgba(255,255,255,0.15)',
+                          backdropFilter: 'blur(10px)',
+                          borderRadius: '20px',
+                          boxShadow: '0 15px 35px rgba(0,0,0,0.2)',
+                          transition: 'transform 0.2s ease-out',
+                          '&:hover': {
+                            transform: 'translateY(-10px)',
+                            boxShadow: '0 25px 45px rgba(0,0,0,0.3)',
+                          }
+                        }}
+                      >
+                        {app.icon ? (
+                          <Box 
+                            component="img" 
+                            src={app.icon} 
+                            alt={app.title} 
+                            sx={{ 
+                              width: { xs: 80, md: 120 }, 
+                              height: { xs: 80, md: 120 },
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.2))',
+                              transition: 'transform 0.2s ease-out',
+                              '&:hover': {
+                                transform: 'scale(1.1)'
+                              }
+                            }}
+                            onError={(e: any) => {
+                              // Icon yüklenemezse fallback icon göster
+                              const img = e.target;
+                              img.style.display = 'none';
+                              const parent = img.parentElement;
+                              if (parent && !parent.querySelector('.fallback-icon')) {
+                                const fallback = document.createElement('div');
+                                fallback.className = 'fallback-icon';
+                                fallback.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="rgba(255,255,255,0.7)"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5506 0 .9989.4482.9989.9993.0001.5511-.4483.9997-.9989.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5506 0 .9989.4482.9989.9993 0 .5511-.4483.9997-.9989.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5671a.416.416 0 00-.5671.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1345 1.0757L4.8431 5.4235a.4161.4161 0 00-.5671-.1521a.4157.4157 0 00-.1521.5671l1.9973 3.4592C2.6889 11.186.8531 12.8508.8531 15.8508c0 .8542.6717 1.5757 1.5317 1.5757h18.2304c.86 0 1.5317-.7215 1.5317-1.5757c0-3-1.8358-4.664-4.6345-5.5294"/></svg>';
+                                parent.appendChild(fallback);
+                              }
+                            }}
+                          />
+                        ) : (
+                          <AndroidIcon sx={{ 
+                            color: 'rgba(255,255,255,0.7)', 
+                            fontSize: { xs: 64, md: 96 } 
+                          }} />
+                        )}
+                      </Box>
+                      <Box sx={{ mt: { xs: 1, md: 2 }, textAlign: 'center' }}>
+                        <Typography variant="h6" fontWeight="bold" color="white" sx={{ 
+                          mb: 0.5,
+                          fontSize: { xs: '0.9rem', md: '1.25rem' }
+                        }}>
+                          {app.title}
+                        </Typography>
+                        <Box sx={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center', 
+                          gap: 0.5
+                        }}>
+                          <AndroidIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
+                          {app.rating > 0 && (
+                            <>
+                              <StarIcon sx={{ color: '#ffc107', fontSize: { xs: 14, md: 16 } }} />
+                              <Typography variant="caption" color="rgba(255,255,255,0.7)" sx={{ fontSize: { xs: '0.7rem', md: '0.8rem' } }}>
+                                {app.rating.toFixed(1)}
+                              </Typography>
+                            </>
+                          )}
+                        </Box>
+                      </Box>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+            </Box>
+          )}
+        </Container>
+      </Box>
+
       {/* Applications Section */}
       <Box id="applications" sx={{ 
         py: 10, 
@@ -947,7 +1221,7 @@ export default function HomePage() {
       }}>
         <Container maxWidth="lg">
           <Typography variant="h3" fontWeight="bold" mb={3} color="white" textAlign="center">
-            My Applications
+            My Web Applications
           </Typography>
           
           <Box sx={{ 
@@ -1025,9 +1299,12 @@ export default function HomePage() {
                     )}
                     {app.platform === 'Web' && (
                       <>
-                        <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
-                        {app.name === 'Anatolia Game' && (
+                        {app.name === 'Delights of Constantinople v2' ? (
                           <SportsEsportsIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
+                        ) : app.name === 'Anatolia Game' ? (
+                          <SportsEsportsIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
+                        ) : (
+                          <PublicIcon sx={{ color: 'rgba(255,255,255,0.7)', fontSize: { xs: 16, md: 20 } }} />
                         )}
                       </>
                     )}
@@ -1051,6 +1328,262 @@ export default function HomePage() {
             background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
             borderRadius: '20px'
           }} />
+        </Container>
+      </Box>
+
+      {/* Education Section */}
+      <Box id="education" sx={{ py: 10, bgcolor: '#0f2027' }}>
+        <Container maxWidth="lg">
+          <Typography variant="h3" fontWeight="bold" mb={3} color="white" textAlign="center">
+            Education
+          </Typography>
+          
+          <Stack spacing={4} sx={{ mt: 6 }}>
+            {/* M.Sc Software Engineering */}
+            <Card sx={{ 
+              backgroundColor: '#1a2332',
+              borderLeft: '4px solid #3b82f6',
+              transition: 'transform 0.2s ease',
+              '&:hover': {
+                transform: 'translateX(8px)',
+              }
+            }}>
+              <CardContent sx={{ p: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 3 }}>
+                  <Box sx={{ display: 'flex', gap: 3, flex: 1, alignItems: 'flex-start' }}>
+                    <Box
+                      sx={{
+                        width: { xs: 60, md: 80 },
+                        height: { xs: 60, md: 80 },
+                        borderRadius: 2,
+                        overflow: 'hidden',
+                        backgroundColor: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        p: 1
+                      }}
+                    >
+                      <Box 
+                        component="img" 
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/University_of_applied_sciences_europe_-_Small_Logo.svg/1200px-University_of_applied_sciences_europe_-_Small_Logo.svg.png"
+                        alt="UE Logo"
+                        sx={{ 
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain'
+                        }}
+                        onError={(e: any) => {
+                          const target = e.target as HTMLImageElement;
+                          if (!target.src.includes('placeholder')) {
+                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"%3E%3Crect fill="%233b82f6" width="80" height="80"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="white"%3EUE%3C/text%3E%3C/svg%3E';
+                          }
+                        }}
+                      />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="h5" fontWeight="bold" color="white" mb={1}>
+                        M.Sc Software Engineering
+                      </Typography>
+                      <Typography variant="subtitle1" color="#90caf9" mb={1}>
+                        Master Degree
+                      </Typography>
+                      <Typography variant="body1" color="rgba(255,255,255,0.8)">
+                        University of Europe for Applied Sciences, Berlin, Germany 🇩🇪
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{ 
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    borderRadius: '8px',
+                    px: 2,
+                    py: 1
+                  }}>
+                    <Typography variant="body2" color="#60a5fa" fontWeight="bold">
+                      Sept. 2024 – Aug. 2025
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+
+            {/* Computer Programming */}
+            <Card sx={{ 
+              backgroundColor: '#1a2332',
+              borderLeft: '4px solid #10b981',
+              transition: 'transform 0.2s ease',
+              '&:hover': {
+                transform: 'translateX(8px)',
+              }
+            }}>
+              <CardContent sx={{ p: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 3 }}>
+                  <Box sx={{ display: 'flex', gap: 3, flex: 1, alignItems: 'flex-start' }}>
+                    <Box
+                      sx={{
+                        width: { xs: 60, md: 80 },
+                        height: { xs: 60, md: 80 },
+                        borderRadius: 2,
+                        overflow: 'hidden',
+                        backgroundColor: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        p: 1
+                      }}
+                    >
+                      <Box 
+                        component="img" 
+                        src="https://www.eduopinions.com/wp-content/uploads/2018/09/GeorgianUniversity-logo.jpg"
+                        alt="Georgian College Logo"
+                        sx={{ 
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain'
+                        }}
+                        onError={(e: any) => {
+                          const target = e.target as HTMLImageElement;
+                          if (!target.src.includes('placeholder')) {
+                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"%3E%3Crect fill="%2310b981" width="80" height="80"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="white"%3EGC%3C/text%3E%3C/svg%3E';
+                          }
+                        }}
+                      />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="h5" fontWeight="bold" color="white" mb={1}>
+                        Computer Programming
+                      </Typography>
+                      <Typography variant="subtitle1" color="#90caf9" mb={1}>
+                        Ontario College Diploma
+                      </Typography>
+                      <Typography variant="body1" color="rgba(255,255,255,0.8)">
+                        Georgian College, Barrie, ON, Canada 🇨🇦
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{ 
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    borderRadius: '8px',
+                    px: 2,
+                    py: 1
+                  }}>
+                    <Typography variant="body2" color="#34d399" fontWeight="bold">
+                      Sept. 2018 – Aug. 2020
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+
+            {/* Business Administration */}
+            <Card sx={{ 
+              backgroundColor: '#1a2332',
+              borderLeft: '4px solid #f59e0b',
+              transition: 'transform 0.2s ease',
+              '&:hover': {
+                transform: 'translateX(8px)',
+              }
+            }}>
+              <CardContent sx={{ p: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 3 }}>
+                  <Box sx={{ display: 'flex', gap: 3, flex: 1, alignItems: 'flex-start' }}>
+                    {/* Two logos side by side */}
+                    <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column', flexShrink: 0 }}>
+                      <Box
+                        sx={{
+                          width: { xs: 60, md: 80 },
+                          height: { xs: 60, md: 80 },
+                          borderRadius: 2,
+                          overflow: 'hidden',
+                          backgroundColor: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          p: 1
+                        }}
+                      >
+                        <Box 
+                          component="img" 
+                          src="https://4ab256ba.delivery.rocketcdn.me/wp-content/uploads/2024/12/Anadolu_University_imtiyaz_449518d815.png"
+                          alt="Anadolu University Logo"
+                          sx={{ 
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain'
+                          }}
+                          onError={(e: any) => {
+                            const target = e.target as HTMLImageElement;
+                            if (!target.src.includes('placeholder')) {
+                              target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"%3E%3Crect fill="%23f59e0b" width="80" height="80"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="white"%3EAÜ%3C/text%3E%3C/svg%3E';
+                            }
+                          }}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          width: { xs: 60, md: 80 },
+                          height: { xs: 60, md: 80 },
+                          borderRadius: 2,
+                          overflow: 'hidden',
+                          backgroundColor: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          p: 1
+                        }}
+                      >
+                        <Box 
+                          component="img" 
+                          src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Utoronto_coa.svg/1200px-Utoronto_coa.svg.png"
+                          alt="University of Toronto Logo"
+                          sx={{ 
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain'
+                          }}
+                          onError={(e: any) => {
+                            const target = e.target as HTMLImageElement;
+                            if (!target.src.includes('placeholder')) {
+                              target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"%3E%3Crect fill="%23002a5c" width="80" height="80"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="18" fill="white"%3EUT%3C/text%3E%3C/svg%3E';
+                            }
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="h5" fontWeight="bold" color="white" mb={1}>
+                        Business Administration
+                      </Typography>
+                      <Typography variant="subtitle1" color="#90caf9" mb={1}>
+                        Bachelor's Degree
+                      </Typography>
+                      <Typography variant="body1" color="rgba(255,255,255,0.8)" mb={1}>
+                        Anadolu University, Eskisehir, Turkey 🇹🇷
+                      </Typography>
+                      <Typography variant="body2" color="rgba(255,255,255,0.6)" fontStyle="italic">
+                        Equivalency: University of Toronto, Canada 🇨🇦
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{ 
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    border: '1px solid rgba(245, 158, 11, 0.3)',
+                    borderRadius: '8px',
+                    px: 2,
+                    py: 1
+                  }}>
+                    <Typography variant="body2" color="#fbbf24" fontWeight="bold">
+                      Sept. 2013 – Jun. 2017
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Stack>
         </Container>
       </Box>
 
