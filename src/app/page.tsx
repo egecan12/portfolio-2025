@@ -310,7 +310,8 @@ export default function HomePage() {
                 overflow: 'hidden',
                 border: '4px solid rgba(255, 255, 255, 0.2)',
                 boxShadow: '0 8px 30px rgba(0, 0, 0, 0.3)',
-                mt: { xs: 4, md: 0 }
+                mt: { xs: 4, md: 0 },
+                backgroundColor: '#f8f1df'
               }}
             >
               <Image
@@ -318,7 +319,10 @@ export default function HomePage() {
                 alt="Egecan Kahyaoglu"
                 fill
                 priority
-                style={{ objectFit: 'cover' }}
+                style={{ 
+                  objectFit: 'contain',
+                  objectPosition: 'center center'
+                }}
               />
             </Box>
           </Stack>
